@@ -6,4 +6,5 @@
 # ~~~~
 
 GET         /?                  featureflags.Features.adminPage
-GET         /{id}/switch        featureflags.Features.switchFeature
+POST        /update             featureflags.Features.updateFeatures
+DELETE  		/{id}               featureflags.Features.delete

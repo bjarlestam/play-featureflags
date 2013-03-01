@@ -1,5 +1,6 @@
 package featureflags;
 
+import play.Play;
 import play.PlayPlugin;
 import play.mvc.results.NotFound;
 
@@ -11,10 +12,14 @@ public class FeatureFlagsPlugin extends PlayPlugin {
     public void beforeActionInvocation(Method method) {
         Feature annotation = getAnnotation(method);
         if (annotation != null) {
-            if (!models.featureflags.Feature.isEnabled(annotation.value())) {
+            if (isFeatureEnabled(annotation)) {
                 throw new NotFound("feature not enabled: " + annotation.value());
             }
         }
+    }
+
+    private boolean isFeatureEnabled(Feature featureAnnotation) {
+        return !models.featureflags.Feature.isEnabled(featureAnnotation.value());
     }
 
 

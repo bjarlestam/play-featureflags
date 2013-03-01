@@ -7,17 +7,20 @@ import java.util.List;
 
 public class Features extends Controller {
 
-    public static void adminPage() {
-        List<Feature> features = Feature.findAll();
-        render(features);
-    }
+	public static void adminPage() {
+		List<Feature> features = Feature.findAll();
+		render(features);
+	}
 
-    public static void switchFeature(Long id) {
-        Feature feature = Feature.findById(id);
-        feature.enabled = !feature.enabled;
-        feature.save();
-        adminPage();
-    }
+	public static void updateFeatures(List<Feature> features) {
+		for(Feature feature: features) {
+			feature.update();
+		}
+		adminPage();
+	}
 
-
+	public static void delete(Long id) {
+		Feature feature = Feature.findById(id);
+		feature.delete();
+	}
 }
